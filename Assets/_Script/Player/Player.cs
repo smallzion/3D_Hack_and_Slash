@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour
     /// 최대 체력
     /// </summary>
     float maxHp;
-    
+
     /// <summary>
     /// 현재 체력
     /// </summary>
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
         get => hp;
         private set
         {
-            if(hp != value)
+            if (hp != value)
             {
                 hp = Mathf.Clamp(value, 0, maxHp);
             }
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
         get => mp;
         set
         {
-            if(mp != value)
+            if (mp != value)
             {
                 mp = Mathf.Clamp(value, 0, maxMp);
             }
@@ -67,35 +68,13 @@ public class Player : MonoBehaviour
     float currentSpeed;
 
     /// <summary>
-    /// 이동방향
+    /// 이동지점
     /// </summary>
-    Vector3 inputDir = Vector3.zero;
+    Vector3 movePoint;
 
-    /// <summary>
-    /// 바닥 체크용 레이어 마스크
-    /// </summary>
-    public LayerMask groundLayer;
+    Vector3 destPos;
 
-    /// <summary>
-    /// 바닥 체크용 트랜스폼
-    /// </summary>
-    Transform groundCheckPosition;
-
-
-    /// <summary>
-    /// 중력값
-    /// </summary>
-    public float gravityForce = 9.81f;
-
-    /// <summary>
-    /// 중력적용할 백터
-    /// </summary>
-    Vector3 gravityDir;
-    
-    /// <summary>
-    /// 현재 중력값
-    /// </summary>
-    float gravityY;
+    bool isMove;
 
     //  컴포넌트        --------------------------------------------------------------------------------------------------------------------------------
 
@@ -109,103 +88,122 @@ public class Player : MonoBehaviour
     /// </summary>
     CharacterController characterController;
 
+    /// <summary>
+    /// 애니메이터
+    /// </summary>
+    Animator anim;
 
+    /// <summary>
+    /// 메인카메라
+    /// </summary>
+    Camera mainCamera;
     private void Awake()
     {
         // 초기값 설정
         maxHp = hp;
         maxMp = mp;
         currentSpeed = speed;
-        groundCheckPosition = transform.GetChild(0);
-
+        movePoint = transform.position;
         // 컴포넌트 찾기
         input = GetComponent<PlayerInput>();
         characterController = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
+
 
         // 인풋 액션 델리게이트 연결하기
-        input.onMove += MoveInput;
-        input.onJump += JumpInput;
-        input.onDash += DashInput;
-        input.onAttack += AttackInput;
-
+        input.onLClick += ActionLClick;
+        input.onRClick += ActionRClick;
+        input.onSpace += ActionSpace;
+        input.onSkill_Q += ActionSkill_Q;
+        input.onSkill_W += ActionSkill_W;
+        input.onSkill_E += ActionSkill_E;
+        input.onSkill_R += ActionSkill_R;
+        input.onSkill_A += ActionSkill_A;
+        input.onSkill_S += ActionSkill_S;
+        input.onSkill_D += ActionSkill_D;
+        input.onSkill_F += ActionSkill_F;
     }
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
+
 
     private void Update()
     {
+        isMove = (transform.position - movePoint).magnitude > 0.1f;
+        if (isMove)
+        {
+            // 이동
+            Move();
+        }
+        anim.SetBool("IsMove", isMove);
 
-        ApplyGravity();
-        Move();
-        transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f, Space.World);
     }
-
-
-
-
-
 
     /// <summary>
     /// 이동관련 함수
     /// </summary>
     private void Move()
     {
-        Vector3 moveDirection = Vector3.forward * inputDir.z + transform.right * inputDir.x;
-        characterController.Move(moveDirection * currentSpeed * Time.deltaTime);
+        Vector3 thisUpdatePoint = (movePoint - transform.position).normalized * speed;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(thisUpdatePoint), 0.25f);
+        characterController.SimpleMove(thisUpdatePoint);
     }
-
-
-    /// <summary>
-    /// 현재 지금 땅 위인지 확인하는 함수
-    /// </summary>
-    /// <returns></returns>
-    bool IsGrounded()
-    {
-        // 캐릭터의 아래에 레이캐스트를 쏴서 바닥에 닿았는지 확인
-        return Physics.Raycast(groundCheckPosition.position, Vector3.down, 0.1f, layerMask: groundLayer);
-    }
-
-    /// <summary>
-    /// 공중일때 중력 적용하는 함수
-    /// </summary>
-    void ApplyGravity()
-    {
-        if (!IsGrounded())
-        {
-            gravityY += gravityForce * Time.deltaTime;
-            gravityDir.y = -gravityY;
-        }
-        else
-        {
-            gravityY = 0;
-        }
-        characterController.Move(Time.deltaTime * gravityDir);
-    }
-
-
-
 
     // 인풋 액션        -------------------------------------------------------------------------------------------------------------------------------
-    private void MoveInput(Vector2 input, bool isPress)
+    private void ActionLClick()
     {
-        // 입력 방향 저장
-        inputDir.x = input.x;
-        inputDir.y = 0;
-        inputDir.z = input.y;
     }
 
-    private void JumpInput()
+    private void ActionRClick()
     {
-        if (IsGrounded())
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            gravityDir.y = 100f;
+            movePoint = new Vector3 (hit.point.x, transform.position.y, hit.point.z);
+            Debug.Log("movePoint : " + movePoint.ToString());
         }
+
     }
 
-    private void DashInput()
+
+    private void ActionSpace()
     {
     }
 
-    private void AttackInput()
+    private void ActionSkill_Q()
     {
     }
+
+    private void ActionSkill_W()
+    {
+    }
+
+    private void ActionSkill_E()
+    {
+    }
+
+    private void ActionSkill_R()
+    {
+    }
+
+    private void ActionSkill_A()
+    {
+    }
+
+    private void ActionSkill_S()
+    {
+    }
+
+    private void ActionSkill_D()
+    {
+    }
+
+    private void ActionSkill_F()
+    {
+    }
+
 
 }

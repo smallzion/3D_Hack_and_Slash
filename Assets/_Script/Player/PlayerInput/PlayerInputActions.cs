@@ -28,194 +28,226 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""3cdbc0b0-5f29-48e1-86db-260def44818d"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""3a8cc165-92bd-4132-bb9c-46d0e4c77a39"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Jump"",
+                    ""name"": ""LClick"",
                     ""type"": ""Button"",
-                    ""id"": ""34361a50-6b89-4c9f-87b1-884cad11fbee"",
+                    ""id"": ""7f316b82-c2bb-4c27-9a62-20c8b527dc6f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""RClick"",
                     ""type"": ""Button"",
-                    ""id"": ""4576f3eb-4fe1-4e6d-80da-94f9a55c75b8"",
+                    ""id"": ""b77f600a-54a2-47be-8f7f-ebecad28b1d3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dash"",
+                    ""name"": ""Space"",
                     ""type"": ""Button"",
-                    ""id"": ""80d13530-0777-4313-a6fd-ccfcbba1dafc"",
+                    ""id"": ""73ff0142-119e-4278-b166-7f2b86e7ffeb"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""MouseMove"",
-                    ""type"": ""Value"",
-                    ""id"": ""2c036bef-bb70-494f-8c66-b0de15ee260a"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""Skill_Q"",
+                    ""type"": ""Button"",
+                    ""id"": ""1182b3e1-08ca-410a-bc66-5efebe8155f2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_W"",
+                    ""type"": ""Button"",
+                    ""id"": ""738789e6-1f08-4908-a3dd-537296e899bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_E"",
+                    ""type"": ""Button"",
+                    ""id"": ""eae70bf6-3765-44a8-9e8c-8b730ec88621"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_R"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad602e9d-faa9-4915-9182-47a0573808cd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_A"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4f38fd1-420e-49a4-bcfd-d3f78467d8a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_S"",
+                    ""type"": ""Button"",
+                    ""id"": ""88ebee95-5ea6-4574-8215-932b116169dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_D"",
+                    ""type"": ""Button"",
+                    ""id"": ""2bf5c789-0921-4076-945f-58e8a183423f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skill_F"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb395e62-a52d-4fc4-b099-2164c43f363f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""a7f87be7-78c2-48c1-8829-c7933146ecae"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""021af2cc-82bf-4532-87fd-29f7f23f359f"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""RClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6804be57-1403-484d-b5b0-c684175c2570"",
+                    ""id"": ""0e715d00-86c0-4a56-a5c8-c32051513663"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill_Q"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29fb8875-b8ea-4b49-a7b7-0b72beb3cbaa"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack"",
+                    ""action"": ""LClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""864df7f9-3b95-43fe-a38d-7931d5c1119c"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3af1995d-139c-405c-b446-203fdd9d9f74"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""New control scheme"",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""8acecfac-f749-4404-8994-c846affb23b8"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""90c617e7-8720-4621-89b4-9795d7cc284c"",
+                    ""id"": ""fd4d59f8-0732-421c-9a3f-15e91c7e6922"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""New control scheme"",
-                    ""action"": ""Move"",
+                    ""groups"": """",
+                    ""action"": ""Skill_W"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""55475f7f-5d6c-4774-baaf-49f3c7760d91"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""New control scheme"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""8175b870-40bc-437a-885d-5028f454533a"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""New control scheme"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""15f885bf-4c76-42a6-9715-6a3f651c9306"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""New control scheme"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2ec61f6b-4b6b-4c85-825d-915545183219"",
-                    ""path"": """",
+                    ""id"": ""b2572926-a6f5-4a01-b5df-be726f2e2136"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseMove"",
+                    ""action"": ""Skill_E"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""fc0c5cfc-4835-40d7-b1d6-6c179997bbf4"",
-                    ""path"": ""2DVector"",
+                    ""name"": """",
+                    ""id"": ""4ff438be-3db0-476b-9700-6fa3a879c8c7"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseMove"",
-                    ""isComposite"": true,
+                    ""action"": ""Skill_R"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""1bed5bb3-a0db-4dc4-9e1e-665e29756fb4"",
-                    ""path"": ""<Mouse>/delta/left"",
+                    ""name"": """",
+                    ""id"": ""c3e8c75e-0d02-403b-bade-863a9cdb0bf1"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseMove"",
+                    ""action"": ""Skill_A"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""39b71cd9-3c1a-4f79-9b9c-9d0a46109881"",
-                    ""path"": ""<Mouse>/delta/right"",
+                    ""name"": """",
+                    ""id"": ""1b87e62f-baaf-4fbb-81c2-4eccf77d400f"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MouseMove"",
+                    ""action"": ""Skill_S"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e679d078-2820-4ace-adff-5b0cc3fce512"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill_D"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f7b4df0-d0d9-4e0e-8d9b-25f3d8f9e052"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skill_F"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b629457c-4126-46d5-84c5-3e7a257bb16b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -241,11 +273,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-        m_Player_MouseMove = m_Player.FindAction("MouseMove", throwIfNotFound: true);
+        m_Player_LClick = m_Player.FindAction("LClick", throwIfNotFound: true);
+        m_Player_RClick = m_Player.FindAction("RClick", throwIfNotFound: true);
+        m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
+        m_Player_Skill_Q = m_Player.FindAction("Skill_Q", throwIfNotFound: true);
+        m_Player_Skill_W = m_Player.FindAction("Skill_W", throwIfNotFound: true);
+        m_Player_Skill_E = m_Player.FindAction("Skill_E", throwIfNotFound: true);
+        m_Player_Skill_R = m_Player.FindAction("Skill_R", throwIfNotFound: true);
+        m_Player_Skill_A = m_Player.FindAction("Skill_A", throwIfNotFound: true);
+        m_Player_Skill_S = m_Player.FindAction("Skill_S", throwIfNotFound: true);
+        m_Player_Skill_D = m_Player.FindAction("Skill_D", throwIfNotFound: true);
+        m_Player_Skill_F = m_Player.FindAction("Skill_F", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -307,20 +345,32 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_Dash;
-    private readonly InputAction m_Player_MouseMove;
+    private readonly InputAction m_Player_LClick;
+    private readonly InputAction m_Player_RClick;
+    private readonly InputAction m_Player_Space;
+    private readonly InputAction m_Player_Skill_Q;
+    private readonly InputAction m_Player_Skill_W;
+    private readonly InputAction m_Player_Skill_E;
+    private readonly InputAction m_Player_Skill_R;
+    private readonly InputAction m_Player_Skill_A;
+    private readonly InputAction m_Player_Skill_S;
+    private readonly InputAction m_Player_Skill_D;
+    private readonly InputAction m_Player_Skill_F;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        public InputAction @Dash => m_Wrapper.m_Player_Dash;
-        public InputAction @MouseMove => m_Wrapper.m_Player_MouseMove;
+        public InputAction @LClick => m_Wrapper.m_Player_LClick;
+        public InputAction @RClick => m_Wrapper.m_Player_RClick;
+        public InputAction @Space => m_Wrapper.m_Player_Space;
+        public InputAction @Skill_Q => m_Wrapper.m_Player_Skill_Q;
+        public InputAction @Skill_W => m_Wrapper.m_Player_Skill_W;
+        public InputAction @Skill_E => m_Wrapper.m_Player_Skill_E;
+        public InputAction @Skill_R => m_Wrapper.m_Player_Skill_R;
+        public InputAction @Skill_A => m_Wrapper.m_Player_Skill_A;
+        public InputAction @Skill_S => m_Wrapper.m_Player_Skill_S;
+        public InputAction @Skill_D => m_Wrapper.m_Player_Skill_D;
+        public InputAction @Skill_F => m_Wrapper.m_Player_Skill_F;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -330,40 +380,76 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
-            @Attack.started += instance.OnAttack;
-            @Attack.performed += instance.OnAttack;
-            @Attack.canceled += instance.OnAttack;
-            @Dash.started += instance.OnDash;
-            @Dash.performed += instance.OnDash;
-            @Dash.canceled += instance.OnDash;
-            @MouseMove.started += instance.OnMouseMove;
-            @MouseMove.performed += instance.OnMouseMove;
-            @MouseMove.canceled += instance.OnMouseMove;
+            @LClick.started += instance.OnLClick;
+            @LClick.performed += instance.OnLClick;
+            @LClick.canceled += instance.OnLClick;
+            @RClick.started += instance.OnRClick;
+            @RClick.performed += instance.OnRClick;
+            @RClick.canceled += instance.OnRClick;
+            @Space.started += instance.OnSpace;
+            @Space.performed += instance.OnSpace;
+            @Space.canceled += instance.OnSpace;
+            @Skill_Q.started += instance.OnSkill_Q;
+            @Skill_Q.performed += instance.OnSkill_Q;
+            @Skill_Q.canceled += instance.OnSkill_Q;
+            @Skill_W.started += instance.OnSkill_W;
+            @Skill_W.performed += instance.OnSkill_W;
+            @Skill_W.canceled += instance.OnSkill_W;
+            @Skill_E.started += instance.OnSkill_E;
+            @Skill_E.performed += instance.OnSkill_E;
+            @Skill_E.canceled += instance.OnSkill_E;
+            @Skill_R.started += instance.OnSkill_R;
+            @Skill_R.performed += instance.OnSkill_R;
+            @Skill_R.canceled += instance.OnSkill_R;
+            @Skill_A.started += instance.OnSkill_A;
+            @Skill_A.performed += instance.OnSkill_A;
+            @Skill_A.canceled += instance.OnSkill_A;
+            @Skill_S.started += instance.OnSkill_S;
+            @Skill_S.performed += instance.OnSkill_S;
+            @Skill_S.canceled += instance.OnSkill_S;
+            @Skill_D.started += instance.OnSkill_D;
+            @Skill_D.performed += instance.OnSkill_D;
+            @Skill_D.canceled += instance.OnSkill_D;
+            @Skill_F.started += instance.OnSkill_F;
+            @Skill_F.performed += instance.OnSkill_F;
+            @Skill_F.canceled += instance.OnSkill_F;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
-            @Attack.started -= instance.OnAttack;
-            @Attack.performed -= instance.OnAttack;
-            @Attack.canceled -= instance.OnAttack;
-            @Dash.started -= instance.OnDash;
-            @Dash.performed -= instance.OnDash;
-            @Dash.canceled -= instance.OnDash;
-            @MouseMove.started -= instance.OnMouseMove;
-            @MouseMove.performed -= instance.OnMouseMove;
-            @MouseMove.canceled -= instance.OnMouseMove;
+            @LClick.started -= instance.OnLClick;
+            @LClick.performed -= instance.OnLClick;
+            @LClick.canceled -= instance.OnLClick;
+            @RClick.started -= instance.OnRClick;
+            @RClick.performed -= instance.OnRClick;
+            @RClick.canceled -= instance.OnRClick;
+            @Space.started -= instance.OnSpace;
+            @Space.performed -= instance.OnSpace;
+            @Space.canceled -= instance.OnSpace;
+            @Skill_Q.started -= instance.OnSkill_Q;
+            @Skill_Q.performed -= instance.OnSkill_Q;
+            @Skill_Q.canceled -= instance.OnSkill_Q;
+            @Skill_W.started -= instance.OnSkill_W;
+            @Skill_W.performed -= instance.OnSkill_W;
+            @Skill_W.canceled -= instance.OnSkill_W;
+            @Skill_E.started -= instance.OnSkill_E;
+            @Skill_E.performed -= instance.OnSkill_E;
+            @Skill_E.canceled -= instance.OnSkill_E;
+            @Skill_R.started -= instance.OnSkill_R;
+            @Skill_R.performed -= instance.OnSkill_R;
+            @Skill_R.canceled -= instance.OnSkill_R;
+            @Skill_A.started -= instance.OnSkill_A;
+            @Skill_A.performed -= instance.OnSkill_A;
+            @Skill_A.canceled -= instance.OnSkill_A;
+            @Skill_S.started -= instance.OnSkill_S;
+            @Skill_S.performed -= instance.OnSkill_S;
+            @Skill_S.canceled -= instance.OnSkill_S;
+            @Skill_D.started -= instance.OnSkill_D;
+            @Skill_D.performed -= instance.OnSkill_D;
+            @Skill_D.canceled -= instance.OnSkill_D;
+            @Skill_F.started -= instance.OnSkill_F;
+            @Skill_F.performed -= instance.OnSkill_F;
+            @Skill_F.canceled -= instance.OnSkill_F;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -392,10 +478,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnMove(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
-        void OnDash(InputAction.CallbackContext context);
-        void OnMouseMove(InputAction.CallbackContext context);
+        void OnLClick(InputAction.CallbackContext context);
+        void OnRClick(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
+        void OnSkill_Q(InputAction.CallbackContext context);
+        void OnSkill_W(InputAction.CallbackContext context);
+        void OnSkill_E(InputAction.CallbackContext context);
+        void OnSkill_R(InputAction.CallbackContext context);
+        void OnSkill_A(InputAction.CallbackContext context);
+        void OnSkill_S(InputAction.CallbackContext context);
+        void OnSkill_D(InputAction.CallbackContext context);
+        void OnSkill_F(InputAction.CallbackContext context);
     }
 }
