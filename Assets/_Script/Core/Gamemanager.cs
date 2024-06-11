@@ -14,13 +14,10 @@ public class GameManager : Singleton<GameManager>
     Player player;
     public Player Player => player;
 
-    CinemachineVirtualCamera virtualCamera;
-    public CinemachineVirtualCamera VCam => virtualCamera;
 
     protected override void OnInitialize()
     {
         player = FindAnyObjectByType<Player>();
-        virtualCamera = FindAnyObjectByType<CinemachineVirtualCamera>();
     }
     
 

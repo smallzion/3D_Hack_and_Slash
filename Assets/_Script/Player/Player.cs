@@ -3,9 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Player : MonoBehaviour
 {
+    public enum SkillType : int
+    {
+        Skill_Q = 5,
+        Skill_W = 5,
+        Skill_E = 8,
+        Skill_R = 10,
+    }
+
     //  변수          ---------------------------------------------------------------------------------------------------------------------------------
     /// <summary>
     /// 체력
@@ -76,6 +85,16 @@ public class Player : MonoBehaviour
 
     bool isMove;
 
+    bool isRClicked = false;
+
+    Coroutine eSkiilCoroutine;
+    Coroutine eSkiilCoolTimeCoroutine;
+
+
+    // 스킬 데미지       -------------------------------------------------------------------------------------------------------------------------------
+
+    float eSkillDamage = 1f;
+
     //  컴포넌트        --------------------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
@@ -132,13 +151,25 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        isMove = (transform.position - movePoint).magnitude > 0.1f;
+
+        if (isRClicked)
+        {
+            SetMovePoint();
+            // 이동
+        }
         if (isMove)
         {
-            // 이동
             Move();
+            isMove = (transform.position - movePoint).magnitude > 0.1f;
         }
-        anim.SetBool("IsMove", isMove);
+        if (isRClicked || isMove)
+        {
+            anim.SetBool("IsMove", true);
+        }
+        else
+        {
+            anim.SetBool("IsMove", false);
+        }
 
     }
 
@@ -152,20 +183,89 @@ public class Player : MonoBehaviour
         characterController.SimpleMove(thisUpdatePoint);
     }
 
+    /// <summary>
+    /// 이동 위치 저장하는 함수
+    /// </summary>
+    private void SetMovePoint()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        LayerMask groundLayerMask = LayerMask.GetMask("Ground");
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
+        {
+            movePoint = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            Debug.Log("Hit object: " + hit.collider.gameObject.name);
+        }
+        isMove = true;
+    }
+
+
+
+    // 스킬 관련    -----------------------------------------------------------------------------------------------------------------------------------
+    private void ESklii(bool isESkillOn)
+    {
+        if (isESkillOn && eSkiilCoolTimeCoroutine == null)
+        {
+            if (eSkiilCoroutine != null)
+            {
+                StopCoroutine(eSkiilCoroutine);
+            }
+            eSkiilCoroutine = StartCoroutine(ESkillAction());
+        }
+        else
+        {
+            if (eSkiilCoroutine != null)
+            {
+                StopCoroutine(eSkiilCoroutine);
+                anim.SetBool("IsEClicked", false);
+                eSkiilCoolTimeCoroutine = StartCoroutine(RefreshCoolTime(SkillType.Skill_E));
+            }
+        }
+    }
+
+    IEnumerator ESkillAction()
+    {
+        anim.SetBool("IsEClicked", true);
+        float elepsdTime = 0.0f;
+        while (elepsdTime < 5.0f)
+        {
+            Collider[] enemies = Physics.OverlapSphere(transform.position, 2f, LayerMask.GetMask("Enemy"));
+            foreach (Collider enemy in enemies)
+            {
+                // 적에게 데미지를 입히는 로직
+                if (enemy.GetComponent<EnemyBase>() != null)
+                {
+                    enemy.GetComponent<EnemyBase>().TakeDamage(eSkillDamage);
+                }
+            }
+            Mp -= 10;
+            elepsdTime += Time.deltaTime;
+            yield return new WaitForSeconds(1f);
+        }
+        anim.SetBool("IsEClicked", false);
+        eSkiilCoolTimeCoroutine = StartCoroutine(RefreshCoolTime(SkillType.Skill_E));
+    }
+
+    IEnumerator RefreshCoolTime(SkillType type)
+    {
+        float elepsedTime = 0.0f;
+        while (elepsedTime < (int)type)
+        {
+            elepsedTime += Time.deltaTime;
+            yield return null;
+            Debug.Log("쿨다운중!" + elepsedTime);
+        }
+        //케이스문으로 타입 비교해서 bool변수로 처리하거나 업데이트에서 쿨타임 처리
+    }
+
     // 인풋 액션        -------------------------------------------------------------------------------------------------------------------------------
     private void ActionLClick()
     {
     }
 
-    private void ActionRClick()
+    private void ActionRClick(bool isClicked)
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            movePoint = new Vector3 (hit.point.x, transform.position.y, hit.point.z);
-            Debug.Log("movePoint : " + movePoint.ToString());
-        }
-
+        isRClicked = isClicked;
     }
 
 
@@ -173,18 +273,31 @@ public class Player : MonoBehaviour
     {
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void ActionSkill_Q()
     {
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void ActionSkill_W()
     {
     }
 
-    private void ActionSkill_E()
+    /// <summary>
+    /// 가렌 e마냥 빙글빙글 도는 함수
+    /// </summary>
+    private void ActionSkill_E(bool isClicked)
     {
+        ESklii(isClicked);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void ActionSkill_R()
     {
     }
