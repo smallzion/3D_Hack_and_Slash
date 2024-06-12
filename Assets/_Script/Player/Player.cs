@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UIElements;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -9,7 +10,7 @@ public class Player : MonoBehaviour
 {
     public enum SkillType : int
     {
-        Skill_Q = 5,
+        Skill_Q = 3,
         Skill_W = 5,
         Skill_E = 8,
         Skill_R = 10,
@@ -83,12 +84,22 @@ public class Player : MonoBehaviour
 
     Vector3 destPos;
 
+    bool canMove = true;
+
     bool isMove;
 
     bool isRClicked = false;
 
     Coroutine eSkiilCoroutine;
-    Coroutine eSkiilCoolTimeCoroutine;
+
+
+    public GameObject RSkillObject;
+
+    // 스킬 쿨타임
+    bool skill_Q_IsCoolDown = false;
+    bool skill_W_IsCoolDown = false;
+    bool skill_E_IsCoolDown = false;
+    bool skill_R_IsCoolDown = false;
 
 
     // 스킬 데미지       -------------------------------------------------------------------------------------------------------------------------------
@@ -152,7 +163,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
 
-        if (isRClicked)
+        if (isRClicked && canMove)
         {
             SetMovePoint();
             // 이동
@@ -178,7 +189,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        Vector3 thisUpdatePoint = (movePoint - transform.position).normalized * speed;
+        Vector3 thisUpdatePoint = (movePoint - transform.position).normalized * currentSpeed;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(thisUpdatePoint), 0.25f);
         characterController.SimpleMove(thisUpdatePoint);
     }
@@ -199,32 +210,45 @@ public class Player : MonoBehaviour
         isMove = true;
     }
 
+    private void SetRoation()
+    {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        LayerMask groundLayerMask = LayerMask.GetMask("Ground");
+        Vector3 lookPoint = Vector3.zero;
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
+        {
+            lookPoint = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            Debug.Log("Hit object: " + hit.collider.gameObject.name);
+        }
+        Vector3 thisUpdatePoint = (lookPoint - transform.position).normalized;
+        transform.rotation = Quaternion.LookRotation(thisUpdatePoint);
+    }
 
 
     // 스킬 관련    -----------------------------------------------------------------------------------------------------------------------------------
-    private void ESklii(bool isESkillOn)
+
+    private void QSkill()
     {
-        if (isESkillOn && eSkiilCoolTimeCoroutine == null)
+
+    }
+
+    private void WSkill()
+    {
+
+    }
+
+    private void ESklii()
+    {
+        if (eSkiilCoroutine != null)
         {
-            if (eSkiilCoroutine != null)
-            {
-                StopCoroutine(eSkiilCoroutine);
-            }
-            eSkiilCoroutine = StartCoroutine(ESkillAction());
+            StopCoroutine(eSkiilCoroutine);
         }
-        else
-        {
-            if (eSkiilCoroutine != null)
-            {
-                StopCoroutine(eSkiilCoroutine);
-                anim.SetBool("IsEClicked", false);
-                eSkiilCoolTimeCoroutine = StartCoroutine(RefreshCoolTime(SkillType.Skill_E));
-            }
-        }
+        eSkiilCoroutine = StartCoroutine(ESkillAction());
     }
 
     IEnumerator ESkillAction()
     {
+        skill_E_IsCoolDown = true;
         anim.SetBool("IsEClicked", true);
         float elepsdTime = 0.0f;
         while (elepsdTime < 5.0f)
@@ -239,21 +263,73 @@ public class Player : MonoBehaviour
                 }
             }
             Mp -= 10;
-            elepsdTime += Time.deltaTime;
+            elepsdTime += 1f;
             yield return new WaitForSeconds(1f);
         }
         anim.SetBool("IsEClicked", false);
-        eSkiilCoolTimeCoroutine = StartCoroutine(RefreshCoolTime(SkillType.Skill_E));
+        StartCoroutine(RefreshCoolTime(SkillType.Skill_E));
     }
 
+    private void RSkill()
+    {
+        canMove = false;
+        currentSpeed = 0.0f;
+        StartCoroutine(RSkillAction());
+    }
+
+    private IEnumerator RSkillAction()
+    {
+        anim.SetTrigger("RSkill");
+        GameObject skillObject = Instantiate(RSkillObject, transform.position + transform.forward * 3 + transform.up * 10, Quaternion.Euler(180, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
+        Destroy(skillObject, 5f);
+        
+        yield return new WaitForSeconds(0.01f);
+
+        float curAnimationTime = anim.GetCurrentAnimatorStateInfo(0).length;
+
+        yield return new WaitForSeconds(curAnimationTime);
+        canMove = true;
+        currentSpeed = speed;
+        StartCoroutine(RefreshCoolTime(SkillType.Skill_R));
+    }
     IEnumerator RefreshCoolTime(SkillType type)
     {
         float elepsedTime = 0.0f;
+        /*switch (type)
+        {
+            case SkillType.Skill_Q:
+                skill_Q_IsCoolDown = true;
+                break;
+            case SkillType.Skill_W:
+                skill_W_IsCoolDown = true;
+                break;
+            case SkillType.Skill_E:
+                skill_E_IsCoolDown = true;
+                break;
+            case SkillType.Skill_R:
+                skill_R_IsCoolDown = true;
+                break;
+        }*/
         while (elepsedTime < (int)type)
         {
             elepsedTime += Time.deltaTime;
             yield return null;
-            Debug.Log("쿨다운중!" + elepsedTime);
+        }
+
+        switch (type)
+        {
+            case SkillType.Skill_Q:
+                skill_Q_IsCoolDown = false;
+                break;
+            case SkillType.Skill_W:
+                skill_W_IsCoolDown = false;
+                break;
+            case SkillType.Skill_E:
+                skill_E_IsCoolDown = false;
+                break;
+            case SkillType.Skill_R:
+                skill_R_IsCoolDown = false;
+                break;
         }
         //케이스문으로 타입 비교해서 bool변수로 처리하거나 업데이트에서 쿨타임 처리
     }
@@ -290,9 +366,12 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 가렌 e마냥 빙글빙글 도는 함수
     /// </summary>
-    private void ActionSkill_E(bool isClicked)
+    private void ActionSkill_E()
     {
-        ESklii(isClicked);
+        if(!skill_E_IsCoolDown)
+        {
+            ESklii();
+        }
     }
 
     /// <summary>
@@ -300,6 +379,12 @@ public class Player : MonoBehaviour
     /// </summary>
     private void ActionSkill_R()
     {
+        if(!skill_R_IsCoolDown)
+        {
+            SetRoation();
+            RSkill();
+            skill_R_IsCoolDown = true;
+        }
     }
 
     private void ActionSkill_A()
@@ -318,5 +403,13 @@ public class Player : MonoBehaviour
     {
     }
 
-
+#if UNITY_EDITOR
+    public void TestCoolTimeRefresh()
+    {
+        skill_Q_IsCoolDown = false;
+        skill_W_IsCoolDown = false;
+        skill_E_IsCoolDown = false;
+        skill_R_IsCoolDown = false;
+    }
+#endif
 }

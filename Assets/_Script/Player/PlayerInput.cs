@@ -12,7 +12,7 @@ public class PlayerInput : MonoBehaviour
     public Action<bool> onRClick;
     public Action onSkill_Q;
     public Action onSkill_W;
-    public Action<bool> onSkill_E;
+    public Action onSkill_E;
     public Action onSkill_R;
     public Action onSkill_A;
     public Action onSkill_S;
@@ -89,7 +89,7 @@ public class PlayerInput : MonoBehaviour
 
     private void OnSkill_E(InputAction.CallbackContext context)
     {
-        onSkill_E?.Invoke(!context.canceled);
+        onSkill_E?.Invoke();
     }
 
     private void OnSkill_R(InputAction.CallbackContext context)
