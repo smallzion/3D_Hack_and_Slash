@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
     bool skill_W_IsCoolDown = false;
     bool skill_E_IsCoolDown = false;
     bool skill_R_IsCoolDown = false;
-
+    bool used_Skill = false;
     string[] normalAttacks = { "NormalAttack" , "NormalAtack_W"};
     string normalAttack;
     float skill_W_Duration = 10f;
@@ -237,8 +237,10 @@ public class Player : MonoBehaviour
     private void NormalAttack()
     {
         normalAttack_IsCoolDown = true;
+        used_Skill = true;
         canMove = false;
         currentSpeed = 0.0f;
+        isMove = false;
         StartCoroutine(NormalAttackAction());
     }
 
@@ -261,14 +263,18 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(curAnimationTime);
         canMove = true;
         currentSpeed = speed;
-        StartCoroutine(RefreshCoolTime(SkillType.NormalAttack));
+        isMove = true;
+        used_Skill = false;
+        yield return StartCoroutine(RefreshCoolTime(SkillType.NormalAttack));
     }
 
     private void QSkill()
     {
         skill_Q_IsCoolDown = true;
+        used_Skill = true;
         canMove = false;
         currentSpeed = 0.0f;
+        isMove = false;
         StartCoroutine(QSkillAction());
     }
 
@@ -292,8 +298,9 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(curAnimationTime);
         canMove = true;
         currentSpeed = speed;
-
-        StartCoroutine(RefreshCoolTime(SkillType.Skill_Q));
+        isMove = true;
+        used_Skill = false;
+        yield return StartCoroutine(RefreshCoolTime(SkillType.Skill_Q));
     }
 
     private void WSkill()
@@ -316,6 +323,8 @@ public class Player : MonoBehaviour
 
     private void ESklii()
     {
+        skill_E_IsCoolDown = true;
+        used_Skill = true;
         if (eSkiilCoroutine != null)
         {
             StopCoroutine(eSkiilCoroutine);
@@ -325,7 +334,6 @@ public class Player : MonoBehaviour
 
     IEnumerator ESkillAction()
     {
-        skill_E_IsCoolDown = true;
         anim.SetBool("IsEClicked", true);
         float elepsdTime = 0.0f;
         while (elepsdTime < 5.0f)
@@ -344,7 +352,8 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         anim.SetBool("IsEClicked", false);
-        StartCoroutine(RefreshCoolTime(SkillType.Skill_E));
+        used_Skill = false;
+        yield return StartCoroutine(RefreshCoolTime(SkillType.Skill_E));
     }
 
     private void RSkill()
@@ -352,6 +361,8 @@ public class Player : MonoBehaviour
         skill_R_IsCoolDown = true;
         canMove = false;
         currentSpeed = 0.0f;
+        used_Skill = true;
+        isMove = false;
         StartCoroutine(RSkillAction());
     }
 
@@ -368,7 +379,9 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(curAnimationTime);
         canMove = true;
         currentSpeed = speed;
-        StartCoroutine(RefreshCoolTime(SkillType.Skill_R));
+        isMove = true;
+        used_Skill = false;
+        yield return StartCoroutine(RefreshCoolTime(SkillType.Skill_R));
     }
     IEnumerator RefreshCoolTime(SkillType type)
     {
@@ -404,7 +417,7 @@ public class Player : MonoBehaviour
     // ÀÎÇ² ¾×¼Ç        -------------------------------------------------------------------------------------------------------------------------------
     private void ActionLClick()
     {
-        if(!normalAttack_IsCoolDown)
+        if(!normalAttack_IsCoolDown && !used_Skill)
         {
             SetRoation();
             NormalAttack();
@@ -426,7 +439,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void ActionSkill_Q()
     {
-        if(!skill_Q_IsCoolDown)
+        if(!skill_Q_IsCoolDown && !used_Skill)
         {
             SetRoation();
             QSkill();
@@ -438,7 +451,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void ActionSkill_W()
     {
-        if(!skill_W_IsCoolDown)
+        if(!skill_W_IsCoolDown && !used_Skill)
         {
             WSkill();
         }
@@ -449,7 +462,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void ActionSkill_E()
     {
-        if(!skill_E_IsCoolDown)
+        if(!skill_E_IsCoolDown && !used_Skill)
         {
             ESklii();
         }
@@ -460,7 +473,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void ActionSkill_R()
     {
-        if(!skill_R_IsCoolDown)
+        if(!skill_R_IsCoolDown && !used_Skill)
         {
             SetRoation();
             RSkill();
