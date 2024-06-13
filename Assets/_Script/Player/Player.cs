@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 {
     public enum SkillType : int
     {
+        NormalAttack = 1,
         Skill_Q = 3,
         Skill_W = 5,
         Skill_E = 8,
@@ -96,15 +97,20 @@ public class Player : MonoBehaviour
     public GameObject RSkillObject;
 
     // 스킬 쿨타임
+    bool normalAttack_IsCoolDown = false;
     bool skill_Q_IsCoolDown = false;
     bool skill_W_IsCoolDown = false;
     bool skill_E_IsCoolDown = false;
     bool skill_R_IsCoolDown = false;
 
-
+    string[] normalAttacks = { "NormalAttack" , "NormalAtack_W"};
+    string normalAttack;
+    float skill_W_Duration = 10f;
     // 스킬 데미지       -------------------------------------------------------------------------------------------------------------------------------
 
-    float eSkillDamage = 1f;
+    float normalAttackDamage = 5f;
+    float qSkillDamage = 20f;
+    float eSkillDamage = 7f;
 
     //  컴포넌트        --------------------------------------------------------------------------------------------------------------------------------
 
@@ -134,6 +140,7 @@ public class Player : MonoBehaviour
         maxMp = mp;
         currentSpeed = speed;
         movePoint = transform.position;
+        normalAttack = normalAttacks[0];
         // 컴포넌트 찾기
         input = GetComponent<PlayerInput>();
         characterController = GetComponent<CharacterController>();
@@ -227,14 +234,84 @@ public class Player : MonoBehaviour
 
     // 스킬 관련    -----------------------------------------------------------------------------------------------------------------------------------
 
+    private void NormalAttack()
+    {
+        normalAttack_IsCoolDown = true;
+        canMove = false;
+        currentSpeed = 0.0f;
+        StartCoroutine(NormalAttackAction());
+    }
+
+    private IEnumerator NormalAttackAction()
+    {
+        anim.SetTrigger(normalAttack);
+        Collider[] enemies = Physics.OverlapSphere(transform.position + transform.forward + transform.up * 0.5f, 1f, LayerMask.GetMask("Enemy"));
+        foreach (Collider enemy in enemies)
+        {
+            // 적에게 데미지를 입히는 로직
+            if (enemy.GetComponent<EnemyBase>() != null)
+            {
+                enemy.GetComponent<EnemyBase>().TakeDamage(normalAttackDamage);
+            }
+        }
+        yield return new WaitForSeconds(0.01f);
+
+        float curAnimationTime = anim.GetCurrentAnimatorStateInfo(0).length;
+
+        yield return new WaitForSeconds(curAnimationTime);
+        canMove = true;
+        currentSpeed = speed;
+        StartCoroutine(RefreshCoolTime(SkillType.NormalAttack));
+    }
+
     private void QSkill()
     {
+        skill_Q_IsCoolDown = true;
+        canMove = false;
+        currentSpeed = 0.0f;
+        StartCoroutine(QSkillAction());
+    }
 
+    private IEnumerator QSkillAction()
+    {
+        anim.SetTrigger("QSkill");
+
+        Collider[] enemies = Physics.OverlapSphere(transform.position + transform.forward + transform.up * 0.5f, 1f, LayerMask.GetMask("Enemy"));
+        foreach (Collider enemy in enemies)
+        {
+            // 적에게 데미지를 입히는 로직
+            if (enemy.GetComponent<EnemyBase>() != null)
+            {
+                enemy.GetComponent<EnemyBase>().TakeDamage(qSkillDamage);
+            }
+        }
+        yield return new WaitForSeconds(0.01f);
+
+        float curAnimationTime = anim.GetCurrentAnimatorStateInfo(0).length;
+
+        yield return new WaitForSeconds(curAnimationTime);
+        canMove = true;
+        currentSpeed = speed;
+
+        StartCoroutine(RefreshCoolTime(SkillType.Skill_Q));
     }
 
     private void WSkill()
     {
+        skill_W_IsCoolDown = true;
+        StartCoroutine(WSkillAction());
+    }
 
+    private IEnumerator WSkillAction()
+    {
+        float originDamage = normalAttackDamage;
+        skill_W_IsCoolDown = true;
+        normalAttack = normalAttacks[1];
+        normalAttackDamage *= 3f;
+        yield return new WaitForSeconds(skill_W_Duration);
+        normalAttackDamage = originDamage;
+        normalAttack = normalAttacks[0];
+        yield return StartCoroutine(RefreshCoolTime(SkillType.Skill_W));
     }
 
     private void ESklii()
@@ -253,7 +330,7 @@ public class Player : MonoBehaviour
         float elepsdTime = 0.0f;
         while (elepsdTime < 5.0f)
         {
-            Collider[] enemies = Physics.OverlapSphere(transform.position, 2f, LayerMask.GetMask("Enemy"));
+            Collider[] enemies = Physics.OverlapSphere(transform.position + transform.up * 0.5f, 2f, LayerMask.GetMask("Enemy"));
             foreach (Collider enemy in enemies)
             {
                 // 적에게 데미지를 입히는 로직
@@ -272,6 +349,7 @@ public class Player : MonoBehaviour
 
     private void RSkill()
     {
+        skill_R_IsCoolDown = true;
         canMove = false;
         currentSpeed = 0.0f;
         StartCoroutine(RSkillAction());
@@ -295,22 +373,8 @@ public class Player : MonoBehaviour
     IEnumerator RefreshCoolTime(SkillType type)
     {
         float elepsedTime = 0.0f;
-        /*switch (type)
-        {
-            case SkillType.Skill_Q:
-                skill_Q_IsCoolDown = true;
-                break;
-            case SkillType.Skill_W:
-                skill_W_IsCoolDown = true;
-                break;
-            case SkillType.Skill_E:
-                skill_E_IsCoolDown = true;
-                break;
-            case SkillType.Skill_R:
-                skill_R_IsCoolDown = true;
-                break;
-        }*/
-        while (elepsedTime < (int)type)
+        
+        while (elepsedTime < (float)type)
         {
             elepsedTime += Time.deltaTime;
             yield return null;
@@ -318,6 +382,9 @@ public class Player : MonoBehaviour
 
         switch (type)
         {
+            case SkillType.NormalAttack:
+                normalAttack_IsCoolDown = false;
+                break;
             case SkillType.Skill_Q:
                 skill_Q_IsCoolDown = false;
                 break;
@@ -337,6 +404,11 @@ public class Player : MonoBehaviour
     // 인풋 액션        -------------------------------------------------------------------------------------------------------------------------------
     private void ActionLClick()
     {
+        if(!normalAttack_IsCoolDown)
+        {
+            SetRoation();
+            NormalAttack();
+        }
     }
 
     private void ActionRClick(bool isClicked)
@@ -354,6 +426,11 @@ public class Player : MonoBehaviour
     /// </summary>
     private void ActionSkill_Q()
     {
+        if(!skill_Q_IsCoolDown)
+        {
+            SetRoation();
+            QSkill();
+        }
     }
 
     /// <summary>
@@ -361,6 +438,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private void ActionSkill_W()
     {
+        if(!skill_W_IsCoolDown)
+        {
+            WSkill();
+        }
     }
 
     /// <summary>
@@ -383,7 +464,6 @@ public class Player : MonoBehaviour
         {
             SetRoation();
             RSkill();
-            skill_R_IsCoolDown = true;
         }
     }
 
