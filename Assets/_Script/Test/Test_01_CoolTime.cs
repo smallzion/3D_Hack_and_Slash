@@ -17,4 +17,9 @@ public class Test_01_CoolTime : TestBase
     {
         player.TestCoolTimeRefresh();
     }
+
+    protected override void OnTest2(InputAction.CallbackContext context)
+    {
+        Factory.Instance.GetDefaultEnemy();
+    }
 }

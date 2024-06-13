@@ -11,7 +11,7 @@ public class Skill_R : MonoBehaviour
         {
             if (other.GetComponent<EnemyBase>() != null)
             {
-                other.GetComponent<EnemyBase>().TakeDamage(Damage);
+                other.GetComponent<EnemyBase>().Defense(Damage);
             }
         }
     }

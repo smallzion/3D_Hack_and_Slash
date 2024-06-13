@@ -253,7 +253,7 @@ public class Player : MonoBehaviour
             // 적에게 데미지를 입히는 로직
             if (enemy.GetComponent<EnemyBase>() != null)
             {
-                enemy.GetComponent<EnemyBase>().TakeDamage(normalAttackDamage);
+                enemy.GetComponent<EnemyBase>().Defense(normalAttackDamage);
             }
         }
         yield return new WaitForSeconds(0.01f);
@@ -288,7 +288,7 @@ public class Player : MonoBehaviour
             // 적에게 데미지를 입히는 로직
             if (enemy.GetComponent<EnemyBase>() != null)
             {
-                enemy.GetComponent<EnemyBase>().TakeDamage(qSkillDamage);
+                enemy.GetComponent<EnemyBase>().Defense(qSkillDamage);
             }
         }
         yield return new WaitForSeconds(0.01f);
@@ -344,7 +344,7 @@ public class Player : MonoBehaviour
                 // 적에게 데미지를 입히는 로직
                 if (enemy.GetComponent<EnemyBase>() != null)
                 {
-                    enemy.GetComponent<EnemyBase>().TakeDamage(eSkillDamage);
+                    enemy.GetComponent<EnemyBase>().Defense(eSkillDamage);
                 }
             }
             Mp -= 10;
