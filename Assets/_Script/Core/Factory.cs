@@ -1,11 +1,11 @@
 using System.Security.Cryptography;
 using UnityEngine;
 
-public enum PoolObjectType
+/*public enum PoolObjectType
 {
     DefaultEnemy = 0,
 }
-
+*/
 public class Factory : Singleton<Factory>
 {
     DefaultEnemyPool defaultEnemy;
@@ -18,7 +18,7 @@ public class Factory : Singleton<Factory>
         if(defaultEnemy != null)
             defaultEnemy.Initialize();
     }
-    public GameObject GetObject(PoolObjectType type, Vector3? position = null, Vector3? euler = null)
+    /*public GameObject GetObject(PoolObjectType type, Vector3? position = null, Vector3? euler = null)
     {
         GameObject result = null;
         switch (type)
@@ -29,7 +29,7 @@ public class Factory : Singleton<Factory>
         }
 
         return result;
-    }
+    }*/
 
     public DefaultEnemy GetDefaultEnemy()
     {

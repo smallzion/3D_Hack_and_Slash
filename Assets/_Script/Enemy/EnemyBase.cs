@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -60,12 +58,59 @@ public class EnemyBase : RecycleObject, IHealth, IBattler
     }
 
     public Action onDie;
-    public Action<NavMeshAgent, int> onDebuffAttack;
     public Action onEnemyStateUpdate;
     public Action<EnemyState> onEnemyStateChange;
+    public Action<Collider> onPlayerChaseInRange;
+    public Action<Collider> onPlayerChaseOutRange;
+    public Action<Collider> onPlayerAttackInRange;
+    public Action<Collider> onPlayerAttackOutRange;
 
     public virtual float Hp { get; set; }
 
+
+    protected virtual void Awake()
+    {
+        onPlayerChaseInRange += PlayerInChaseRange;
+        onPlayerChaseOutRange += PlayerOutChaseRange;
+        onPlayerAttackInRange += PlayerInAttackRange;
+        onPlayerAttackOutRange += PlayerOutAttackRange;
+    }
+
+    protected virtual void PlayerInChaseRange(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            State = EnemyState.Chase;
+            Debug.Log("플레이어 찾음");
+        }
+    }
+
+    protected virtual void PlayerOutChaseRange(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            State = EnemyState.Patrol;
+            Debug.Log("플레이어 놓침");
+        }
+    }
+
+    protected virtual void PlayerInAttackRange(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            State = EnemyState.Attack;
+            Debug.Log("공격범위 안으로들어옴");
+        }
+    }
+
+    protected virtual void PlayerOutAttackRange(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            State = EnemyState.Chase;
+            Debug.Log("공격범위 밖으로나감");
+        }
+    }
 
     protected virtual void Start()
     {
@@ -116,4 +161,6 @@ public class EnemyBase : RecycleObject, IHealth, IBattler
     {
 
     }
+
+
 }
