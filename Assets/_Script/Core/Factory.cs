@@ -8,13 +8,13 @@ using UnityEngine;
 */
 public class Factory : Singleton<Factory>
 {
-    DefaultEnemyPool defaultEnemy;
+    Enemy_Slime_Pool defaultEnemy;
 
     protected override void OnInitialize()
     {
         base.OnInitialize();
         // 풀 컴포넌트 찾고 찾으면 초기화하기
-        defaultEnemy = GetComponentInChildren<DefaultEnemyPool>();
+        defaultEnemy = GetComponentInChildren<Enemy_Slime_Pool>();
         if(defaultEnemy != null)
             defaultEnemy.Initialize();
     }
@@ -31,12 +31,12 @@ public class Factory : Singleton<Factory>
         return result;
     }*/
 
-    public DefaultEnemy GetDefaultEnemy()
+    public Enemy_Slime GetDefaultEnemy()
     {
         return defaultEnemy.GetObject();
     }
 
-    public DefaultEnemy GetDefaultEnemy(Vector3 position, float angle = 0.0f)
+    public Enemy_Slime GetDefaultEnemy(Vector3 position, float angle = 0.0f)
     {
         return defaultEnemy.GetObject(position, angle * Vector3.forward);
     }

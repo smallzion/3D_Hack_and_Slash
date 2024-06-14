@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 889525862973551936}
-  - component: {fileID: 5670123981625552833}
+  - component: {fileID: 7909384376434880789}
   m_Layer: 0
   m_Name: DefaultEnemyPool
   m_TagString: Untagged
@@ -77,7 +77,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1437271769566401994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5670123981625552833
+--- !u!114 &7909384376434880789
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,9 +86,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5370447932714793199}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d80e64a6ceecbc448859bb52a8d5fea, type: 3}
+  m_Script: {fileID: 11500000, guid: 46888b1ec7f069344bfe403fb5d299b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recycleObject: {fileID: 4725392059928733760, guid: c374df15d03d6c34b9e85dcd658417ec,
+  originalPrefab: {fileID: 6742378460320248951, guid: b3ccb33c0381f9a4abec27232fc73b2a,
     type: 3}
-  poolSize: 8
+  poolSize: 64

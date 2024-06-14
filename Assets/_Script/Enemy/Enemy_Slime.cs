@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class DefaultEnemy : EnemyBase
+public class Enemy_Slime : EnemyBase
 {
     public float hp = 100f;
     override public float Hp
