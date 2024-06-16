@@ -32,7 +32,6 @@ public class ObjectPool<T> : MonoBehaviour where T : RecycleObject
             pool = new T[poolSize];                 // 배열의 크기만큼 new
             readyQueue = new Queue<T>(poolSize);    // 레디큐를 만들고 capacity를 poolSize로 지정
 
-            int a = 0;
             GenerateObjects(0, poolSize, pool);
         }
         else

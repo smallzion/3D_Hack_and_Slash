@@ -150,6 +150,7 @@ public class EnemyBase : RecycleObject, IHealth, IBattler
 
     public virtual void Die()
     {
+        gameObject.SetActive(false);
     }
 
     public virtual void Attack(IBattler target)

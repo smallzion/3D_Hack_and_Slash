@@ -1,26 +1,26 @@
 fileFormatVersion: 2
-guid: b2c5dad1c2b246f48024751ad65ef02b
+guid: 7e4be7fe57594324791f629bdfb9a0e8
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Body
-    100004: BottomEyeCover
-    100006: Crown
-    100008: EyeBall
-    100010: EyeCTRL
+    100000: Body
+    100002: BottomEyeCover
+    100004: Crown
+    100006: EyeBall
+    100008: EyeCTRL
+    100010: //RootNode
     100012: Head
     100014: Side_L
     100016: Side_R
     100018: Slime
     100020: Spine01
     100022: UpperEyeCover
-    400000: //RootNode
-    400002: Body
-    400004: BottomEyeCover
-    400006: Crown
-    400008: EyeBall
-    400010: EyeCTRL
+    400000: Body
+    400002: BottomEyeCover
+    400004: Crown
+    400006: EyeBall
+    400008: EyeCTRL
+    400010: //RootNode
     400012: Head
     400014: Side_L
     400016: Side_R
@@ -28,7 +28,7 @@ ModelImporter:
     400020: Spine01
     400022: UpperEyeCover
     4300000: Slime
-    7400000: Attack01
+    7400000: GetHit
     9500000: //RootNode
     13700000: Slime
   externalObjects: {}
@@ -60,7 +60,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack01
+      name: GetHit
       takeName: Take 001
       firstFrame: 0
       lastFrame: 25

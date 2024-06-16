@@ -432,9 +432,9 @@ GameObject:
   - component: {fileID: 2159768327051832277}
   - component: {fileID: 5813946006153707743}
   - component: {fileID: 2158824859814277485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy_Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -468,7 +468,7 @@ Animator:
   m_GameObject: {fileID: 6742378460320248951}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 6520c6d7889f4c72b416f07f34edd515, type: 3}
-  m_Controller: {fileID: 9100000, guid: 9bbcf96c9a254c5ba654027c656d7b39, type: 2}
+  m_Controller: {fileID: 9100000, guid: ccdc51876b3718a40b88e0c8075be8bd, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

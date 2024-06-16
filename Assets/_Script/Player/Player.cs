@@ -6,7 +6,7 @@ using UnityEngine.Animations;
 using UnityEngine.UIElements;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IBattler
 {
     public enum SkillType : int
     {
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
         {
             movePoint = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-            Debug.Log("Hit object: " + hit.collider.gameObject.name);
+            //Debug.Log("Hit object: " + hit.collider.gameObject.name);
         }
         isMove = true;
     }
@@ -225,7 +225,7 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
         {
             lookPoint = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-            Debug.Log("Hit object: " + hit.collider.gameObject.name);
+            //Debug.Log("Hit object: " + hit.collider.gameObject.name);
         }
         Vector3 thisUpdatePoint = (lookPoint - transform.position).normalized;
         transform.rotation = Quaternion.LookRotation(thisUpdatePoint);
@@ -503,6 +503,17 @@ public class Player : MonoBehaviour
         skill_W_IsCoolDown = false;
         skill_E_IsCoolDown = false;
         skill_R_IsCoolDown = false;
+    }
+
+    public void Attack(IBattler target)
+    {
+        
+    }
+
+    public void Defense(float attackPower)
+    {
+        Hp -= attackPower;
+        Debug.Log("³²ÀºHP" + Hp);
     }
 #endif
 }
