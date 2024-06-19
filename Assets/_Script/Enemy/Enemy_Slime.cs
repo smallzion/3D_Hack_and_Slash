@@ -116,8 +116,11 @@ public class Enemy_Slime : EnemyBase
     }
     public override void Defense(float attackPower)
     {
-        Hp -= attackPower;
-        anim.SetTrigger("GetHit");
+        if (!isDie)
+        {
+            Hp -= attackPower;
+            anim.SetTrigger("GetHit");
+        }
     }
 
     protected override void PlayerInChaseRange(Collider other)
@@ -151,13 +154,13 @@ public class Enemy_Slime : EnemyBase
 
     IEnumerator DieAction()
     {
+        isDie = true;
         anim.SetBool("IsDie", true);
         /*while (!anim.GetCurrentAnimatorStateInfo(0).IsName("IsDie"))
         {
             yield return null;
         }*/
         yield return new WaitForSeconds(1.0f);
-        isDie = true;
         gameObject.SetActive(false);
         Debug.Log(isDie);
         yield return null;

@@ -1,0 +1,31 @@
+{
+	"skills":[
+        {
+            "name": "QSkill",
+            "SkillType: Q"
+            "description": "A powerful fire attack."
+        },
+        {
+            "name": "WSkill",
+            "SkillType: W"
+            "description": "A sharp spear of ice."
+        },
+	{
+            "name": "ESkill",
+            "SkillType: E"
+            "description": "A sharp spear of ice."
+        },
+	{
+            "name": "RSkill",
+            "SkillType: R"
+            "description": "A sharp spear of ice."
+        },
+
+        {
+            "name": "IceCyclrone",
+            "SkillType: IceCyclone"
+            "description": "A quick lightning strike."
+        }
+    ]
+
+}

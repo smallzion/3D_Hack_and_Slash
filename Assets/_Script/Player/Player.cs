@@ -133,6 +133,14 @@ public class Player : MonoBehaviour, IBattler
     /// 메인카메라
     /// </summary>
     Camera mainCamera;
+
+
+
+
+
+    // 델리게이트 -----------------------------------------------------------------------------------------------------
+    public Action IceSkillLvUp;
+    public Action IceSkillLvDown;
     private void Awake()
     {
         // 초기값 설정
@@ -495,7 +503,16 @@ public class Player : MonoBehaviour, IBattler
     private void ActionSkill_F()
     {
     }
+    public void Attack(IBattler target)
+    {
 
+    }
+
+    public void Defense(float attackPower)
+    {
+        Hp -= attackPower;
+        Debug.Log("남은HP" + Hp);
+    }
 #if UNITY_EDITOR
     public void TestCoolTimeRefresh()
     {
@@ -505,15 +522,15 @@ public class Player : MonoBehaviour, IBattler
         skill_R_IsCoolDown = false;
     }
 
-    public void Attack(IBattler target)
+    public void TestSkillLvUp()
     {
-        
+        IceSkillLvUp.Invoke();
     }
 
-    public void Defense(float attackPower)
+    public void TestSkillLvDown()
     {
-        Hp -= attackPower;
-        Debug.Log("남은HP" + Hp);
+        IceSkillLvDown.Invoke();
+
     }
 #endif
 }
