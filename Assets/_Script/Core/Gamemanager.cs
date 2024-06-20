@@ -1,35 +1,67 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using System.Xml;
 using System.IO;
+using System;
 
 public class GameManager : Singleton<GameManager>
 {
     Player player;
-    List<SkillStatus> skillList;
-
+    public Player Player => player;
+    List<SkillStatus> skillStatusData = new List<SkillStatus>();
+    public List<SkillStatus> SkillStatusData => skillStatusData;
     protected override void OnInitialize()
     {
         player = FindAnyObjectByType<Player>();
-        LoadSkillData(); // 게임 매니저 초기화 시 스킬 데이터 로드
+        LoadSkillData();
+//        PrintSkillData();
     }
 
-    void LoadSkillData()
+    public void LoadSkillData()
     {
-        string filePath = Path.Combine(Application.dataPath, "JsonFile", "SkillStatus.json");
+        TextAsset textAsset = (TextAsset)Resources.Load("SkillData/SkillDatas");
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.LoadXml(textAsset.text);
+        
+        XmlNodeList skillList = xmlDoc.SelectNodes("skills/skill");
+        foreach (XmlNode skillInfo in skillList)
+        {
+            SkillStatus newSkill = new SkillStatus();
+            newSkill.name = skillInfo.SelectSingleNode("name").InnerText;
+            newSkill.description = skillInfo.SelectSingleNode("description").InnerText;
+            string skillTypeStr = skillInfo.SelectSingleNode("skillType").InnerText;
 
-        if (File.Exists(filePath))
-        {
-            string json = File.ReadAllText(filePath);
-            skillList = JsonUtility.FromJson<List<SkillStatus>>(json);
-        }
-        else
-        {
-            Debug.LogError("SkillStatus.json 파일을 찾을 수 없습니다.");
+            SkillType skillType;
+            if (!Enum.TryParse(skillTypeStr, out skillType))
+            {
+                Debug.LogError($"Failed to parse skillType: {skillTypeStr}");
+                continue;
+            }
+            newSkill.skillType = skillType;
+
+
+
+            skillStatusData.Add(newSkill);
         }
     }
-
-    public SkillStatus GetSkillStatus(SkillType type)
+    public SkillStatus GetSkillData(SkillType skillType)
     {
-        return skillList.Find(skill => skill.skillType == type);
+        SkillStatus skill = skillStatusData.Find(skill => skill.Type == skillType);
+        return skill;
     }
+
+    public SkillStatus GetRandomSkillData(int index)
+    {
+
+        return skillStatusData[index];
+    }
+    public void PrintSkillData()
+    {
+        foreach (SkillStatus skill in skillStatusData)
+        {
+            Debug.Log("스킬 이름: " + skill.name + "스킬 설명: " + skill.description + "스킬 타입: " + skill.Type);
+        }
+    }
+
 }

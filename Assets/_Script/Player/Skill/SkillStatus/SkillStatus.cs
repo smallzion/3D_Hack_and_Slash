@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillType
+public enum SkillType : int
 {
-    Q,
+    Q = 0,
     W,
     E,
     R,
@@ -17,6 +17,9 @@ public class SkillStatus
     public string name;
     public string description;
     public SkillType skillType;
+    public SkillStatus() { }
+
+
 
     public SkillType Type { get; set; }
 
@@ -26,4 +29,6 @@ public class SkillStatus
         this.description = description;
         this.Type = skillType;
     }
+
 }
+

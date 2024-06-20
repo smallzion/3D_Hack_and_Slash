@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,7 +8,7 @@ public class SkillLevelUpUI : MonoBehaviour
 {
     public List<SkillStatus> skillStatuses; // 스킬 데이터를 저장할 리스트
     private TextMeshProUGUI[] skillTexts;
-
+    int[] skillCounts;
     private void Awake()
     {
         skillTexts = new TextMeshProUGUI[transform.childCount];
@@ -24,29 +25,31 @@ public class SkillLevelUpUI : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Start()
     {
+        skillCounts = new int[GameManager.Instance.SkillStatusData.Count];
+        for(int i = 0;i < skillCounts.Length;i++)
+        {
+            skillCounts[i] = i; 
+        }
         UpdateSkillTexts();
     }
 
     private void UpdateSkillTexts()
     {
-        for (int i = 0; i < skillTexts.Length; i++)
+        List<int> numbers = new List<int>();
+        numbers.AddRange(skillCounts);
+        System.Random rand = new System.Random();
+        numbers = numbers.OrderBy(x => rand.Next()).ToList();
+        int[] selectedNumbers = new int[3];
+        selectedNumbers = numbers.Take(3).ToArray();
+
+        for (int i = 0; i < selectedNumbers.Length; i++)
         {
-            SkillStatus randomSkill = GetRandomSkill();
+            SkillStatus randomSkill = GameManager.Instance.GetRandomSkillData(selectedNumbers[i]);
             skillTexts[i].text = $"{randomSkill.name}\n{randomSkill.description}";
         }
-    }
 
-    private SkillStatus GetRandomSkill()
-    {
-        if (skillStatuses == null || skillStatuses.Count == 0)
-        {
-            return new SkillStatus("Unknown", "No Description", SkillType.Fire);
-        }
-
-        int randomIndex = Random.Range(0, skillStatuses.Count);
-        return skillStatuses[randomIndex];
     }
 
     public void OnSkillImageClick(BaseEventData eventData)

@@ -1,0 +1,27 @@
+<skills>
+  <skill>
+    <name>Ice Cyclone</name>
+    <description>Unleashes a cyclone of ice.</description>
+    <skillType>IceCyclone</skillType>
+  </skill>
+  <skill>
+    <name>Q</name>
+    <description>Shoots a fireball that deals damage.</description>
+    <skillType>Q</skillType>
+  </skill>
+  <skill>
+    <name>W</name>
+    <description>Restores health to an ally.</description>
+    <skillType>W</skillType>
+  </skill>
+  <skill>
+    <name>E</name>
+    <description>Restores health to an ally.</description>
+    <skillType>E</skillType>
+  </skill>
+  <skill>
+    <name>R</name>
+    <description>Restores health to an ally.</description>
+    <skillType>R</skillType>
+  </skill>
+</skills>
