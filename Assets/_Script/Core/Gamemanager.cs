@@ -10,7 +10,17 @@ public class GameManager : Singleton<GameManager>
     Player player;
     public Player Player => player;
     List<SkillStatus> skillStatusData = new List<SkillStatus>();
-    public List<SkillStatus> SkillStatusData => skillStatusData;
+    public List<SkillStatus> SkillStatusData
+    {
+        get => skillStatusData;
+        set
+        {
+            if(value != skillStatusData)
+            {
+                skillStatusData = value;
+            }
+        }
+    }
     protected override void OnInitialize()
     {
         player = FindAnyObjectByType<Player>();

@@ -108,9 +108,13 @@ public class Player : MonoBehaviour, IBattler
     float skill_W_Duration = 10f;
     // 스킬 데미지       -------------------------------------------------------------------------------------------------------------------------------
 
-    float normalAttackDamage = 5f;
-    float qSkillDamage = 20f;
-    float eSkillDamage = 7f;
+    public float normalAttackDamage = 5f;
+    public float qSkillDamage = 20f;
+    public float wSkillDamage = 2f;
+    public float eSkillDamage = 7f;
+
+    // 스킬 사용 가능 여부
+    public bool rSkillActive = false;
 
     //  컴포넌트        --------------------------------------------------------------------------------------------------------------------------------
 
@@ -322,7 +326,7 @@ public class Player : MonoBehaviour, IBattler
         float originDamage = normalAttackDamage;
         skill_W_IsCoolDown = true;
         normalAttack = normalAttacks[1];
-        normalAttackDamage *= 3f;
+        normalAttackDamage *= wSkillDamage;
         yield return new WaitForSeconds(skill_W_Duration);
         normalAttackDamage = originDamage;
         normalAttack = normalAttacks[0];
@@ -481,7 +485,7 @@ public class Player : MonoBehaviour, IBattler
     /// </summary>
     private void ActionSkill_R()
     {
-        if(!skill_R_IsCoolDown && !used_Skill)
+        if(!skill_R_IsCoolDown && !used_Skill && rSkillActive)
         {
             SetRoation();
             RSkill();

@@ -216,7 +216,19 @@ MonoBehaviour:
   - eventID: 4
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 507060147}
+          m_TargetAssemblyTypeName: SkillLevelUpUI, Assembly-CSharp
+          m_MethodName: OnSkillImage1SlotClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &38875863
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +394,19 @@ MonoBehaviour:
   - eventID: 4
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 507060147}
+          m_TargetAssemblyTypeName: SkillLevelUpUI, Assembly-CSharp
+          m_MethodName: OnSkillImage2SlotClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &143942857 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8832375153844258358, guid: a6fbd62c9f256f744b4f686c7bcae79e,
@@ -1318,7 +1342,19 @@ MonoBehaviour:
   - eventID: 4
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 507060147}
+          m_TargetAssemblyTypeName: SkillLevelUpUI, Assembly-CSharp
+          m_MethodName: OnSkillImage0SlotClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1033133824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1350,17 +1386,17 @@ PrefabInstance:
     - target: {fileID: 5388522285121042775, guid: a6fbd62c9f256f744b4f686c7bcae79e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5388522285121042775, guid: a6fbd62c9f256f744b4f686c7bcae79e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5388522285121042775, guid: a6fbd62c9f256f744b4f686c7bcae79e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5388522285121042775, guid: a6fbd62c9f256f744b4f686c7bcae79e,
         type: 3}
@@ -1861,6 +1897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1753381715}
+  - component: {fileID: 1753381716}
   m_Layer: 0
   m_Name: Test_04_SkillLv_UI
   m_TagString: Untagged
@@ -1883,6 +1920,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1753381716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753381714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5a9a757c365fe47b3eea2da928c0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: -1
+  skillLevelUpUI: {fileID: 0}
 --- !u!1 &1800105900
 GameObject:
   m_ObjectHideFlags: 3
@@ -5218,8 +5269,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 330585546}
   - {fileID: 410087041}
-  - {fileID: 832575519}
   - {fileID: 1033133824}
+  - {fileID: 832575519}
   - {fileID: 5686300870666780614}
   - {fileID: 1479292423}
   - {fileID: 38875865}

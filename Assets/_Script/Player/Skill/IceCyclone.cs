@@ -7,6 +7,7 @@ public class IceCyclone : MonoBehaviour
 {
     Transform[] iceSpears;
     int skillLevel = 0;
+    public int SkillLevel => skillLevel;
     public int speed = 1;
     
     Player player;
