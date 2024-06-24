@@ -294,7 +294,7 @@ Transform:
   m_GameObject: {fileID: 38875863}
   serializedVersion: 2
   m_LocalRotation: {x: 0.18485866, y: 0, z: 0, w: 0.98276514}
-  m_LocalPosition: {x: 7.98, y: 6.59, z: -10}
+  m_LocalPosition: {x: 7.98, y: 9.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -651,7 +651,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.18485866, y: 0, z: 0, w: 0.98276514}
-  m_LocalPosition: {x: 7.98, y: 6.59, z: -10}
+  m_LocalPosition: {x: 7.98, y: 9.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4085,7 +4085,7 @@ Transform:
   m_GameObject: {fileID: 5017603923580953980}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.98, y: 1.59, z: 0}
+  m_LocalPosition: {x: 7.98, y: 4.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4125,6 +4125,11 @@ MonoBehaviour:
   speed: 5
   RSkillObject: {fileID: 5610884078883986163, guid: 4af396043943f06449db39fd847d9c0a,
     type: 3}
+  normalAttackDamage: 5
+  qSkillDamage: 20
+  wSkillDamage: 10
+  eSkillDamage: 7
+  rSkillActive: 0
 --- !u!143 &5686300870666780617
 CharacterController:
   m_ObjectHideFlags: 0
