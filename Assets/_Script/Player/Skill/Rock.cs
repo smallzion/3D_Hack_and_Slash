@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceSpear : MonoBehaviour
+public class Rock : MonoBehaviour
 {
 
     public float skillDamage = 10f;

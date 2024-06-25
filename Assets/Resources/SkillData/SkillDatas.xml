@@ -1,27 +1,27 @@
 <skills>
   <skill>
-    <name>Ice Cyclone</name>
-    <description>Unleashes a cyclone of ice.</description>
-    <skillType>IceCyclone</skillType>
+    <name>Rock Cyclone</name>
+    <description>플레이어의 주위에 회전하는 바위의 개수가 늘어난다.</description>
+    <skillType>RockCyclone</skillType>
   </skill>
   <skill>
     <name>Q</name>
-    <description>Shoots a fireball that deals damage.</description>
+    <description>q스킬의 데미지가 증가한다.</description>
     <skillType>Q</skillType>
   </skill>
   <skill>
     <name>W</name>
-    <description>Restores health to an ally.</description>
+    <description>w스킬의 지속시간동안 증가하는 공격력이 높아진다.</description>
     <skillType>W</skillType>
   </skill>
   <skill>
     <name>E</name>
-    <description>Restores health to an ally.</description>
+    <description>e스킬의 회전당 데미지가 증가한다.</description>
     <skillType>E</skillType>
   </skill>
   <skill>
     <name>R</name>
-    <description>Restores health to an ally.</description>
+    <description>하늘에서 거대한 칼이 떨어지는 R스킬을 사용할 수 있게 된다.</description>
     <skillType>R</skillType>
   </skill>
 </skills>

@@ -8,7 +8,7 @@ public enum SkillType : int
     W,
     E,
     R,
-    IceCyclone
+    RockCyclone
 }
 
 [System.Serializable]

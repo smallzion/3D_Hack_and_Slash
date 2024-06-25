@@ -176,10 +176,10 @@ public class SkillLevelUpUI : MonoBehaviour
                 GameManager.Instance.SkillStatusData.Remove(skillStatuses[index]);
                 skillCounts.RemoveAt(skillCounts.Count - 1);
                 break;
-            case SkillType.IceCyclone:
+            case SkillType.RockCyclone:
                 if(player.transform.GetChild(4).gameObject.activeSelf)
                 {
-                    IceCyclone iceCyclone = player.transform.GetChild(4).gameObject.GetComponent<IceCyclone>();
+                    RockCyclone iceCyclone = player.transform.GetChild(4).gameObject.GetComponent<RockCyclone>();
                     if(iceCyclone.SkillLevel < 3)
                     {
                         iceCyclone.SkillLevelUp();

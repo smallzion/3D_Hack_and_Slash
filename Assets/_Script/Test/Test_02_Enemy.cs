@@ -20,11 +20,11 @@ public class Test_02_Enemy : TestBase
 
     protected override void OnTest2(InputAction.CallbackContext context)
     {
-        player.transform.GetChild(4).GetComponent<IceCyclone>().SkillLevelUp();
+        player.transform.GetChild(4).GetComponent<RockCyclone>().SkillLevelUp();
     }
 
     protected override void OnTest3(InputAction.CallbackContext context)
     {
-        player.transform.GetChild(4).GetComponent<IceCyclone>().SkillLevelDown();
+        player.transform.GetChild(4).GetComponent<RockCyclone>().SkillLevelDown();
     }
 }
