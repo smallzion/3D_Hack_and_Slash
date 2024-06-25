@@ -21,11 +21,23 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+
+    public Action enemyKillCount;
+    int enemyScore;
+    public int EnemyScore => enemyScore;
+
     protected override void OnInitialize()
     {
         player = FindAnyObjectByType<Player>();
         LoadSkillData();
+        enemyKillCount += ChangeScore;
 //        PrintSkillData();
+    }
+
+    private void ChangeScore()
+    {
+        enemyScore++;
+        Debug.Log(enemyScore);
     }
 
     public void LoadSkillData()

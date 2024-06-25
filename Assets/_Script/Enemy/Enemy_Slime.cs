@@ -9,19 +9,22 @@ public class Enemy_Slime : EnemyBase
     public float hp = 100f;
     override public float Hp
     {
-        get => hp; 
+        get => hp;
         set
         {
-            if(hp != value)
+            if (hp != value)
             {
-                hp = Mathf.Clamp(value,0,100);
-                if(hp < 0.1f)
+                hp = Mathf.Clamp(value, 0, 100);
+                if (hp < 0.1f)
                 {
                     State = EnemyState.Die;
                 }
-            }   
+            }
         }
     }
+    GameObject playerRader;
+    GameObject playerAttackRader;
+
 
     float attackPower = 5f;
     private Vector3 walkPoint;
@@ -39,9 +42,12 @@ public class Enemy_Slime : EnemyBase
     protected override void OnEnable()
     {
         base.OnEnable();
+        Refresh();
     }
     protected override void Awake()
     {
+        playerRader = transform.GetChild(2).gameObject;
+        playerAttackRader = transform.GetChild(3).gameObject;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         base.Awake();
@@ -73,13 +79,13 @@ public class Enemy_Slime : EnemyBase
     protected override void Update_Attack()
     {
         //공격 구현
-        if(elepsedTime > attackTimer)
+        if (elepsedTime > attackTimer)
         {
             anim.SetFloat("AttackRandom", Random.Range(0, 1f));
             Collider[] targets = Physics.OverlapSphere(transform.position, 2.0f, LayerMask.GetMask("Player"));
             foreach (var target in targets)
             {
-                if(target.gameObject.CompareTag("Player"))
+                if (target.gameObject.CompareTag("Player"))
                 {
                     player.Defense(attackPower);
                 }
@@ -97,7 +103,7 @@ public class Enemy_Slime : EnemyBase
         agent.SetDestination(player.transform.position);
         anim.SetBool("IsWalk", false);
         anim.SetBool("IsRun", true);
-        
+
     }
     protected override void Update_Die()
     {
@@ -108,7 +114,7 @@ public class Enemy_Slime : EnemyBase
             agent.isStopped = true;
             Die();
         }
-        
+
     }
     protected override void Update()
     {
@@ -137,35 +143,38 @@ public class Enemy_Slime : EnemyBase
     {
         base.PlayerInAttackRange(other);
     }
-  
+
     protected override void PlayerOutAttackRange(Collider other)
     {
         base.PlayerOutAttackRange(other);
     }
     public override void Die()
     {
-        StopAllCoroutines();
-        StartCoroutine(DieAction());
-        /*if(isDie)
+        if (!isDie)
         {
-            base.Die();
-        }*/
+            isDie = true;
+            playerRader.SetActive(false);
+            playerAttackRader.SetActive(false);
+            StopAllCoroutines();
+            StartCoroutine(DieAction());
+        }
     }
 
     IEnumerator DieAction()
     {
-        isDie = true;
         anim.SetBool("IsDie", true);
-        /*while (!anim.GetCurrentAnimatorStateInfo(0).IsName("IsDie"))
-        {
-            yield return null;
-        }*/
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.2f);
+        GameManager.Instance.enemyKillCount?.Invoke();
         gameObject.SetActive(false);
-        Debug.Log(isDie);
         yield return null;
     }
-
+    void Refresh()
+    {
+        isDie = false;
+        Hp = 100;
+        playerRader.SetActive(true);
+        playerAttackRader.SetActive(true);
+    }
     void SetNewRandomDestination()
     {
         Vector3 randomDirection = Random.insideUnitSphere * patrolRange;

@@ -2565,7 +2565,7 @@ PrefabInstance:
     - target: {fileID: 2158824859814277485, guid: b3ccb33c0381f9a4abec27232fc73b2a,
         type: 3}
       propertyPath: hp
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6742378460320248951, guid: b3ccb33c0381f9a4abec27232fc73b2a,
         type: 3}
@@ -3131,6 +3131,11 @@ MonoBehaviour:
   speed: 5
   RSkillObject: {fileID: 5610884078883986163, guid: 4af396043943f06449db39fd847d9c0a,
     type: 3}
+  normalAttackDamage: 5
+  qSkillDamage: 20
+  wSkillDamage: 2
+  eSkillDamage: 7
+  rSkillActive: 0
 --- !u!143 &5686300870666780617
 CharacterController:
   m_ObjectHideFlags: 0
