@@ -31,7 +31,6 @@ public class GameManager : Singleton<GameManager>
         player = FindAnyObjectByType<Player>();
         LoadSkillData();
         enemyKillCount += ChangeScore;
-//        PrintSkillData();
     }
 
     private void ChangeScore()
@@ -78,12 +77,12 @@ public class GameManager : Singleton<GameManager>
 
         return skillStatusData[index];
     }
-    public void PrintSkillData()
+    /*public void PrintSkillData()
     {
         foreach (SkillStatus skill in skillStatusData)
         {
             Debug.Log("스킬 이름: " + skill.name + "스킬 설명: " + skill.description + "스킬 타입: " + skill.Type);
         }
-    }
+    }*/
 
 }

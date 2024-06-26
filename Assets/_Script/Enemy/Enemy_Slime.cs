@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Enemy_Slime : EnemyBase
 {
+    public float maxHp = 100f;
     public float hp = 100f;
     override public float Hp
     {
@@ -14,7 +15,7 @@ public class Enemy_Slime : EnemyBase
         {
             if (hp != value)
             {
-                hp = Mathf.Clamp(value, 0, 100);
+                hp = Mathf.Clamp(value, 0, maxHp);
                 if (hp < 0.1f)
                 {
                     State = EnemyState.Die;
@@ -46,6 +47,7 @@ public class Enemy_Slime : EnemyBase
     }
     protected override void Awake()
     {
+        hp = maxHp;
         playerRader = transform.GetChild(2).gameObject;
         playerAttackRader = transform.GetChild(3).gameObject;
         agent = GetComponent<NavMeshAgent>();
@@ -171,7 +173,7 @@ public class Enemy_Slime : EnemyBase
     void Refresh()
     {
         isDie = false;
-        Hp = 100;
+        Hp = maxHp;
         playerRader.SetActive(true);
         playerAttackRader.SetActive(true);
     }
