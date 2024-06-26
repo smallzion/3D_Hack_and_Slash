@@ -22,7 +22,7 @@ public class Spawn : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.Instance.enemyKillCount += () => spawnCount--;
+        GameManager.Instance.onEnemyKillCount += () => spawnCount--;
     }
     private void Update()
     {

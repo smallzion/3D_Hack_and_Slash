@@ -10,6 +10,7 @@ public class ScoreUI : MonoBehaviour
 
     TextMeshProUGUI killScoreText;
 
+
     private void Awake()
     {
         killScoreText = GetComponent<TextMeshProUGUI>();
@@ -17,7 +18,7 @@ public class ScoreUI : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
-        gameManager.enemyKillCount += RefreshScoreUI;
+        gameManager.onEnemyKillCount += RefreshScoreUI;
         killScoreText.text = $"Score:  {gameManager.EnemyScore}";
     }
 

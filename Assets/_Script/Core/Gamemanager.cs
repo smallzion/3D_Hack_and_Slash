@@ -22,7 +22,8 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public Action enemyKillCount;
+    public Action onSkillUpgrade;
+    public Action onEnemyKillCount;
     int enemyScore;
     public int EnemyScore => enemyScore;
 
@@ -30,12 +31,16 @@ public class GameManager : Singleton<GameManager>
     {
         player = FindAnyObjectByType<Player>();
         LoadSkillData();
-        enemyKillCount += ChangeScore;
+        onEnemyKillCount += ChangeScore;
     }
 
     private void ChangeScore()
     {
         enemyScore++;
+        if (enemyScore % 10 == 0)
+        {
+            onSkillUpgrade?.Invoke();
+        }
         Debug.Log(enemyScore);
     }
 

@@ -10,6 +10,10 @@ public class SkillLevelUpUI : MonoBehaviour
     public List<SkillStatus> skillStatuses; // 스킬 데이터를 저장할 리스트
     private TextMeshProUGUI[] skillTexts;
     List<int> skillCounts;
+
+
+
+    private bool isPaused = false; // 게임이 일시정지 상태인지 여부
     private void Awake()
     {
         skillTexts = new TextMeshProUGUI[transform.childCount];
@@ -31,6 +35,7 @@ public class SkillLevelUpUI : MonoBehaviour
     {
 
         player = GameManager.Instance.Player;
+        GameManager.Instance.onSkillUpgrade += UpdateSkillUI;
         skillCounts = new();
         for (int i = 0; i < GameManager.Instance.SkillStatusData.Count; i++)
         {
@@ -40,6 +45,8 @@ public class SkillLevelUpUI : MonoBehaviour
         UpdateSkillTexts();
         gameObject.SetActive(false);
     }
+
+
 
     private void UpdateSkillTexts()
     {
@@ -104,7 +111,25 @@ public class SkillLevelUpUI : MonoBehaviour
         }
     }
 
+
     public void UpdateSkillUI()
+    {
+        if (GameManager.Instance.SkillStatusData.Count > 0)
+        {
+            Time.timeScale = 0f; // 게임 일시정지
+            isPaused = true;
+            gameObject.SetActive(true);
+            UpdateSkillTexts();
+        }
+        else
+        {
+            Time.timeScale = 1f; // 게임 재개
+            isPaused = false;
+            gameObject.SetActive(false);
+            Debug.LogWarning("SkillStatusData list is empty. Skill Level Up UI is not shown.");
+        }
+    }
+    /*public void UpdateSkillUI()
     {
         if (GameManager.Instance.SkillStatusData.Count > 0)
         {
@@ -116,41 +141,78 @@ public class SkillLevelUpUI : MonoBehaviour
             gameObject.SetActive(false);
             Debug.LogWarning("SkillStatusData list is empty. Skill Level Up UI is not shown.");
         }
-    }
+    }*/
+
 
     public void OnSkillImage0SlotClick()
     {
+        if (!isPaused)
+            return;
 
         SkillLevel(skillStatuses[0].skillType, 0);
-        //GameManager.Instance.SkillStatusData.Remove(skillStatuses[0]);
-        //skillCounts.RemoveAt(skillCounts.Count - 1);
-        Debug.Log("0");
         skillStatuses.Clear();
         gameObject.SetActive(false);
-
+        Time.timeScale = 1f; // 게임 재개
+        isPaused = false;
     }
 
     public void OnSkillImage1SlotClick()
     {
-        SkillLevel(skillStatuses[1].skillType, 1);
-        //GameManager.Instance.SkillStatusData.Remove(skillStatuses[1]);
-        //skillCounts.RemoveAt(skillCounts.Count - 1);
+        if (!isPaused)
+            return;
 
-        Debug.Log("1");
+        SkillLevel(skillStatuses[1].skillType, 1);
         skillStatuses.Clear();
         gameObject.SetActive(false);
-
+        Time.timeScale = 1f; // 게임 재개
+        isPaused = false;
     }
 
     public void OnSkillImage2SlotClick()
     {
+        if (!isPaused)
+            return;
+
         SkillLevel(skillStatuses[2].skillType, 2);
-        //GameManager.Instance.SkillStatusData.Remove(skillStatuses[2]);
-        //skillCounts.RemoveAt(skillCounts.Count - 1);
-        Debug.Log("2");
         skillStatuses.Clear();
         gameObject.SetActive(false);
+        Time.timeScale = 1f; // 게임 재개
+        isPaused = false;
     }
+
+    /* public void OnSkillImage0SlotClick()
+     {
+
+         SkillLevel(skillStatuses[0].skillType, 0);
+         //GameManager.Instance.SkillStatusData.Remove(skillStatuses[0]);
+         //skillCounts.RemoveAt(skillCounts.Count - 1);
+         Debug.Log("0");
+         skillStatuses.Clear();
+         gameObject.SetActive(false);
+
+     }
+
+     public void OnSkillImage1SlotClick()
+     {
+         SkillLevel(skillStatuses[1].skillType, 1);
+         //GameManager.Instance.SkillStatusData.Remove(skillStatuses[1]);
+         //skillCounts.RemoveAt(skillCounts.Count - 1);
+
+         Debug.Log("1");
+         skillStatuses.Clear();
+         gameObject.SetActive(false);
+
+     }
+
+     public void OnSkillImage2SlotClick()
+     {
+         SkillLevel(skillStatuses[2].skillType, 2);
+         //GameManager.Instance.SkillStatusData.Remove(skillStatuses[2]);
+         //skillCounts.RemoveAt(skillCounts.Count - 1);
+         Debug.Log("2");
+         skillStatuses.Clear();
+         gameObject.SetActive(false);
+     }*/
 
     void SkillLevel(SkillType type, int index)
     {

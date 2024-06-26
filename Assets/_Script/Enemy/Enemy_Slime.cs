@@ -166,7 +166,7 @@ public class Enemy_Slime : EnemyBase
     {
         anim.SetBool("IsDie", true);
         yield return new WaitForSeconds(2.2f);
-        GameManager.Instance.enemyKillCount?.Invoke();
+        GameManager.Instance.onEnemyKillCount?.Invoke();
         gameObject.SetActive(false);
         yield return null;
     }

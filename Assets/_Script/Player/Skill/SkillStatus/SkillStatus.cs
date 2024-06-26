@@ -19,8 +19,6 @@ public class SkillStatus
     public SkillType skillType;
     public SkillStatus() { }
 
-
-
     public SkillType Type { get; set; }
 
     public SkillStatus(string name, string description, SkillType skillType)

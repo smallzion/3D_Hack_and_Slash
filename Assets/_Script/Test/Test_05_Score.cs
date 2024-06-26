@@ -7,6 +7,6 @@ public class Test_05_Score : TestBase
 {
     protected override void OnTest1(InputAction.CallbackContext context)
     {
-        GameManager.Instance.enemyKillCount?.Invoke();
+        GameManager.Instance.onEnemyKillCount?.Invoke();
     }
 }
