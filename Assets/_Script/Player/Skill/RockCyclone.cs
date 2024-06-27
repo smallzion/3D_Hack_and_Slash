@@ -5,23 +5,24 @@ using UnityEngine;
 
 public class RockCyclone : MonoBehaviour
 {
-    Transform[] iceSpears;
+    Transform[] rocks;
     int skillLevel = 0;
     public int SkillLevel => skillLevel;
     public int speed = 1;
-    
+    public float radius = 5f;
+
     Player player;
 
     private void Awake()
     {
-        iceSpears = new Transform[transform.childCount];
+        rocks = new Transform[transform.childCount];
         player = transform.parent.GetComponent<Player>();
         player.IceSkillLvUp += SkillLevelUp;
         player.IceSkillLvDown += SkillLevelDown;
-        for (int i = 0; i < iceSpears.Length; i++)
+        for (int i = 0; i < rocks.Length; i++)
         {
-            iceSpears[i] = transform.GetChild(i);
-            iceSpears[i].gameObject.SetActive(false);
+            rocks[i] = transform.GetChild(i);
+            rocks[i].gameObject.SetActive(false);
         }
     }
 
@@ -41,20 +42,30 @@ public class RockCyclone : MonoBehaviour
         skillLevel--;
         SelectSkillLV();
     }
-    
+
     void SelectSkillLV()
     {
-        // 모든 iceSpears를 비활성화
-        for (int i = 0; i < iceSpears.Length; i++)
+        for (int i = 0; i < rocks.Length; i++)
         {
-            iceSpears[i].gameObject.SetActive(false);
+            rocks[i].gameObject.SetActive(false);
         }
 
-        // skillLevel에 따라 필요한 개수만큼 활성화
-        for (int i = 0; i < skillLevel && i < iceSpears.Length; i++)
+        for (int i = 0; i < skillLevel && i < rocks.Length; i++)
         {
-            iceSpears[i].gameObject.SetActive(true);
-        }
+            rocks[i].gameObject.SetActive(true);
 
+            if (i == 0)
+            {
+                rocks[i].localPosition = new Vector3(0, 0, radius);
+            }
+            else
+            {
+                float angle = 360f / skillLevel * i;
+                float radians = angle * Mathf.Deg2Rad;
+                float x = Mathf.Sin(radians) * radius;
+                float z = Mathf.Cos(radians) * radius;
+                rocks[i].localPosition = new Vector3(x, 0, z);
+            }
+        }
     }
 }

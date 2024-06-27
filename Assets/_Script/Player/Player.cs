@@ -83,6 +83,7 @@ public class Player : MonoBehaviour, IBattler
     /// </summary>
     Vector3 movePoint;
 
+    public Vector3 MovePoint => movePoint;
     Vector3 destPos;
 
     bool canMove = true;
@@ -185,14 +186,15 @@ public class Player : MonoBehaviour, IBattler
         if (isRClicked && canMove)
         {
             SetMovePoint();
+            isMove = (transform.position - movePoint).sqrMagnitude > 1f;
             // ÀÌµ¿
         }
         if (isMove)
         {
             Move();
-            isMove = (transform.position - movePoint).magnitude > 0.1f;
+            isMove = (transform.position - movePoint).sqrMagnitude > 1f;
         }
-        if (isRClicked || isMove)
+        if ((isRClicked && isMove) || isMove)
         {
             anim.SetBool("IsMove", true);
         }
@@ -209,8 +211,13 @@ public class Player : MonoBehaviour, IBattler
     private void Move()
     {
         Vector3 thisUpdatePoint = (movePoint - transform.position).normalized * currentSpeed;
+//        Vector3 thisUpdatePoint = (movePoint - transform.position).normalized * currentSpeed * Time.deltaTime;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(thisUpdatePoint), 0.25f);
         characterController.SimpleMove(thisUpdatePoint);
+        Debug.Log(movePoint);
+
+        
+//        characterController.Move(thisUpdatePoint);
     }
 
     /// <summary>
@@ -223,7 +230,8 @@ public class Player : MonoBehaviour, IBattler
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
         {
-            movePoint = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            //movePoint = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            movePoint = new Vector3(hit.point.x, hit.point.y, hit.point.z);
             //Debug.Log("Hit object: " + hit.collider.gameObject.name);
         }
         isMove = true;

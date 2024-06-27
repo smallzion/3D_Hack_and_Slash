@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Test_01_CoolTime : TestBase
 {
+#if UNITY_EDITOR
     Player player;
 
 
@@ -22,4 +23,5 @@ public class Test_01_CoolTime : TestBase
     {
         Factory.Instance.GetDefaultEnemy();
     }
+#endif
 }
