@@ -18,7 +18,7 @@ public class ScoreUI : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
-        gameManager.onEnemyKillCount += RefreshScoreUI;
+        gameManager.onEnemyKillCountChange += RefreshScoreUI;
         killScoreText.text = $"Score:  {gameManager.EnemyScore}";
     }
 

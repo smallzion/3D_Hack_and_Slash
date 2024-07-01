@@ -10,6 +10,21 @@ public class GameManager : Singleton<GameManager>
     Player player;
     public Player Player => player;
     List<SkillStatus> skillStatusData = new List<SkillStatus>();
+
+    public Action<int> onWaveChange;
+    int gameWave = 1;
+    public int Wave
+    {
+        get => gameWave;
+        private set
+        {
+            if (gameWave != value)
+            {
+                gameWave = value;
+                onWaveChange?.Invoke(gameWave);
+            }
+        }
+    }
     public List<SkillStatus> SkillStatusData
     {
         get => skillStatusData;
@@ -23,25 +38,41 @@ public class GameManager : Singleton<GameManager>
     }
 
     public Action onSkillUpgrade;
-    public Action onEnemyKillCount;
-    int enemyScore;
-    public int EnemyScore => enemyScore;
+    public Action onEnemyKillCountChange;
+    public Action onEnemyDie;
+    int enemyScore = 0;
+    public int EnemyScore
+    {
+        get => enemyScore;
+        private set
+        {
+            if(enemyScore != value)
+            {
+                enemyScore = value;
+                onEnemyKillCountChange?.Invoke();
+            }
+        }
+    }
 
     protected override void OnInitialize()
     {
         player = FindAnyObjectByType<Player>();
         LoadSkillData();
-        onEnemyKillCount += ChangeScore;
+        onEnemyDie += ChangeScore;
     }
 
     private void ChangeScore()
     {
-        enemyScore++;
-        if (enemyScore % 10 == 0)
+        EnemyScore++;
+        if (EnemyScore % 10 == 0)
         {
             onSkillUpgrade?.Invoke();
         }
-        Debug.Log(enemyScore);
+        if(EnemyScore % 100 == 0)
+        {
+            Wave++;
+        }
+        Debug.Log(EnemyScore);
     }
 
     public void LoadSkillData()
@@ -82,12 +113,20 @@ public class GameManager : Singleton<GameManager>
 
         return skillStatusData[index];
     }
-    /*public void PrintSkillData()
+#if UNITY_EDITOR
+    public void TestEnemyKill(int enemyCount)
     {
-        foreach (SkillStatus skill in skillStatusData)
-        {
-            Debug.Log("스킬 이름: " + skill.name + "스킬 설명: " + skill.description + "스킬 타입: " + skill.Type);
-        }
-    }*/
+        EnemyScore += enemyCount;
 
+        if (EnemyScore % 100 == 0)
+        {
+            Wave++;
+        }
+        Debug.Log(EnemyScore);
+    }
+    private void TestChangeScore()
+    {
+        
+    }
+#endif
 }

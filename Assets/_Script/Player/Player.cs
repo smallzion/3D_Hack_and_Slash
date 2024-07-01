@@ -39,9 +39,13 @@ public class Player : MonoBehaviour, IBattler
             if (hp != value)
             {
                 hp = Mathf.Clamp(value, 0, maxHp);
+                playerHpChange?.Invoke(Hp * 0.01f);
             }
         }
     }
+
+    public Action<float> playerHpChange;
+
 
     /// <summary>
     /// ¸¶³ª

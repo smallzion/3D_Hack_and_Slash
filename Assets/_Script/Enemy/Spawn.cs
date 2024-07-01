@@ -10,7 +10,7 @@ public class Spawn : MonoBehaviour
     bool isSpawn = true;
 
     float elepsedTime = 0.0f;
-    public float coolDown = 1.0f;
+    public float coolDown = 5.0f;
 
     private void Awake()
     {
@@ -22,7 +22,11 @@ public class Spawn : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.Instance.onEnemyKillCount += () => spawnCount--;
+        GameManager.Instance.onEnemyDie += () => spawnCount--;
+        GameManager.Instance.onWaveChange += (wave) =>
+        {
+            coolDown -= coolDown * 0.1f;
+        };
     }
     private void Update()
     {

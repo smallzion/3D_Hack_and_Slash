@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
+
 
 public class Enemy_Slime : EnemyBase
 {
@@ -29,7 +29,7 @@ public class Enemy_Slime : EnemyBase
 
     float attackPower = 5f;
     private Vector3 walkPoint;
-    public float patrolRange = 10f; // 배회 범위
+    public float patrolRange = 10f;
     NavMeshAgent agent;
     Player player;
     private float timer;
@@ -40,6 +40,8 @@ public class Enemy_Slime : EnemyBase
     float attackTimer = 1.0f;
     float elepsedTime = 0.0f;
     bool isDie = false;
+
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -83,7 +85,7 @@ public class Enemy_Slime : EnemyBase
         //공격 구현
         if (elepsedTime > attackTimer)
         {
-            anim.SetFloat("AttackRandom", Random.Range(0, 1f));
+            anim.SetFloat("AttackRandom", UnityEngine.Random.Range(0, 1f));
             Collider[] targets = Physics.OverlapSphere(transform.position, 2.0f, LayerMask.GetMask("Player"));
             foreach (var target in targets)
             {
@@ -166,7 +168,7 @@ public class Enemy_Slime : EnemyBase
     {
         anim.SetBool("IsDie", true);
         yield return new WaitForSeconds(2.2f);
-        GameManager.Instance.onEnemyKillCount?.Invoke();
+        GameManager.Instance.onEnemyDie?.Invoke();
         gameObject.SetActive(false);
         yield return null;
     }
@@ -179,7 +181,7 @@ public class Enemy_Slime : EnemyBase
     }
     void SetNewRandomDestination()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * patrolRange;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrolRange;
         randomDirection += transform.position;
         NavMeshHit hit;
         NavMesh.SamplePosition(randomDirection, out hit, patrolRange, 1);
