@@ -28,6 +28,8 @@ public class RockCyclone : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0) return;
+
         transform.Rotate(0, speed, 0);
     }
 

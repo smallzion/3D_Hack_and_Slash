@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -186,6 +187,7 @@ public class Player : MonoBehaviour, IBattler
 
     private void Update()
     {
+        if (Time.timeScale == 0) return;
 
         if (isRClicked && canMove)
         {
@@ -218,7 +220,6 @@ public class Player : MonoBehaviour, IBattler
 //        Vector3 thisUpdatePoint = (movePoint - transform.position).normalized * currentSpeed * Time.deltaTime;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(thisUpdatePoint), 0.25f);
         characterController.SimpleMove(thisUpdatePoint);
-        Debug.Log(movePoint);
 
         
 //        characterController.Move(thisUpdatePoint);
